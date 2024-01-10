@@ -1,0 +1,25 @@
+
+export default {
+  data () {
+    return {
+      frameCount: 0
+    }
+  },
+  methods: {
+    useDefer (maxFrameCount = 1000) {
+      const _this = this
+      const refreshFrameCount = function () {
+        requestAnimationFrame(() => {
+          _this.frameCount++
+          if (_this.frameCount < maxFrameCount) {
+            refreshFrameCount()
+          }
+        })
+      }
+      refreshFrameCount()
+      return function (showInFrameCount) {
+        return _this.frameCount >= showInFrameCount
+      }
+    }
+  }
+}
